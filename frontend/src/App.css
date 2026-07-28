@@ -1,0 +1,434 @@
+/* App.css — "On Air" Studio Theme
+   Concept: a mock-interview feels like stepping into a recording booth.
+   Questions are cue cards, timers are studio clocks, recording is live.
+   ------------------------------------------------------------------ */
+ 
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Courier+Prime:wght@400;700&family=Inter:wght@400;500;600;700&display=swap');
+ 
+:root {
+  --ink:          #12141a;
+  --panel:        #1b1e26;
+  --panel-line:   #2a2e3a;
+  --paper:        #f4ecd8;
+  --paper-line:   #d9cdae;
+  --ink-text:     #2b2620;
+  --onair:        #ff4d3d;
+  --onair-dim:    #7a2a24;
+  --amber:        #ffb020;
+  --confidence:   #34d399;
+  --text-soft:    #c9cdd6;
+  --text-faint:   #7d8391;
+}
+ 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+ 
+body {
+  background:
+    radial-gradient(ellipse at 20% -10%, #1e2230 0%, transparent 55%),
+    radial-gradient(ellipse at 100% 10%, #201a1c 0%, transparent 45%),
+    var(--ink);
+  color: var(--text-soft);
+  font-family: 'Inter', sans-serif;
+  min-height: 100vh;
+}
+ 
+.app {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 60px 24px 40px;
+}
+ 
+h1 {
+  text-align: center;
+  color: #f2ede1;
+  margin-bottom: 8px;
+  font-family: 'Fraunces', serif;
+  font-weight: 600;
+  font-size: 2.75rem;
+  letter-spacing: -0.01em;
+}
+ 
+h1::after {
+  content: 'REHEARSAL ROOM';
+  display: block;
+  text-align: center;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.35em;
+  color: var(--text-faint);
+  margin-top: 10px;
+  margin-bottom: 34px;
+}
+ 
+/* ==================== ON-AIR GLOBAL TIMER ==================== */
+.global-timer {
+  position: fixed;
+  top: 24px;
+  right: 30px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--panel);
+  color: #f2ede1;
+  padding: 10px 20px 10px 16px;
+  border-radius: 8px;
+  font-family: 'Courier Prime', monospace;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  border: 1px solid var(--panel-line);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  z-index: 10;
+}
+ 
+.global-timer::before {
+  content: '';
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--onair);
+  box-shadow: 0 0 0 0 rgba(255, 77, 61, 0.6);
+  animation: pulse-dot 1.6s ease-out infinite;
+  flex-shrink: 0;
+}
+ 
+@keyframes pulse-dot {
+  0%   { box-shadow: 0 0 0 0 rgba(255, 77, 61, 0.55); }
+  70%  { box-shadow: 0 0 0 9px rgba(255, 77, 61, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(255, 77, 61, 0); }
+}
+ 
+/* ==================== PER-QUESTION TIMER ==================== */
+.timer-container {
+  text-align: center;
+  margin-bottom: 22px;
+}
+ 
+.timer {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--panel);
+  color: var(--amber);
+  padding: 9px 22px;
+  border-radius: 999px;
+  font-family: 'Courier Prime', monospace;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  border: 1px solid var(--panel-line);
+  box-shadow: inset 0 0 0 1px rgba(255, 176, 32, 0.08);
+}
+ 
+.timer::before {
+  content: '⏱';
+  font-size: 13px;
+  opacity: 0.8;
+}
+ 
+/* ==================== ROLE SELECTOR ==================== */
+.role-selector {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-bottom: 44px;
+  flex-wrap: wrap;
+}
+ 
+.role-selector select {
+  padding: 13px 20px;
+  font-size: 15px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  background-color: var(--panel);
+  color: #f2ede1;
+  border: 1px solid var(--panel-line);
+  border-radius: 8px;
+  outline: none;
+  min-width: 230px;
+  transition: border-color 0.2s ease;
+}
+ 
+.role-selector select:focus {
+  border-color: var(--amber);
+}
+ 
+/* ==================== BUTTONS — studio console style ==================== */
+.role-selector button,
+.recording-controls button,
+.navigation-buttons button {
+  padding: 13px 26px;
+  font-size: 14px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.2s ease;
+}
+ 
+/* Primary action — press-down "console button" feel, no floaty scaling */
+.role-selector button,
+.recording-controls button:first-child {
+  background: var(--amber);
+  color: #1a1305;
+  box-shadow: 0 3px 0 #b87d0f, 0 8px 18px rgba(255, 176, 32, 0.15);
+}
+ 
+.role-selector button:hover,
+.recording-controls button:first-child:hover {
+  background: #ffc043;
+}
+ 
+.role-selector button:active,
+.recording-controls button:first-child:active,
+.navigation-buttons button:active:not(:disabled) {
+  transform: translateY(3px);
+  box-shadow: 0 0 0 #b87d0f;
+}
+ 
+/* Stop / recording-active button — reads as live */
+.recording-controls button:not(:first-child):not([disabled]) {
+  background: var(--onair);
+  color: #fff5f4;
+  box-shadow: 0 3px 0 #a3271e, 0 8px 18px rgba(255, 77, 61, 0.2);
+}
+ 
+.recording-controls button:not(:first-child):not([disabled])::before {
+  content: '● ';
+}
+ 
+.recording-controls button[disabled] {
+  background: var(--panel);
+  color: var(--text-faint);
+  cursor: not-allowed;
+  box-shadow: none;
+  border: 1px solid var(--panel-line);
+}
+ 
+/* Navigation buttons */
+.navigation-buttons button {
+  background-color: transparent;
+  color: var(--text-soft);
+  border: 1px solid var(--panel-line);
+  box-shadow: none;
+}
+ 
+.navigation-buttons button:hover:not(:disabled) {
+  border-color: var(--amber);
+  color: #f2ede1;
+}
+ 
+.navigation-buttons button:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+ 
+/* ==================== QUESTION CARD — the cue card ==================== */
+.question-card {
+  position: relative;
+  background:
+    repeating-linear-gradient(
+      var(--paper),
+      var(--paper) 31px,
+      var(--paper-line) 32px
+    );
+  padding: 40px 38px 34px;
+  border-radius: 3px;
+  color: var(--ink-text);
+  box-shadow:
+    0 22px 45px rgba(0, 0, 0, 0.45),
+    0 2px 0 rgba(0, 0, 0, 0.05);
+  margin-bottom: 30px;
+  transform: rotate(-0.4deg);
+}
+ 
+/* washi-tape corner, pinning the card in place */
+.question-card::before {
+  content: '';
+  position: absolute;
+  top: -14px;
+  left: 36px;
+  width: 84px;
+  height: 26px;
+  background: rgba(255, 176, 32, 0.55);
+  border: 1px solid rgba(255, 176, 32, 0.3);
+  transform: rotate(-3deg);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+}
+ 
+.question-header h3 {
+  font-family: 'Courier Prime', monospace;
+  font-weight: 700;
+  color: var(--onair-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.85rem;
+  margin-bottom: 16px;
+  padding-bottom: 10px;
+  border-bottom: 1px dashed var(--paper-line);
+}
+ 
+.question-card p {
+  font-family: 'Fraunces', serif;
+  font-weight: 500;
+  font-size: 1.3rem;
+  line-height: 1.65;
+  margin-bottom: 24px;
+  color: var(--ink-text);
+}
+ 
+textarea {
+  width: 100%;
+  height: 150px;
+  padding: 16px 18px;
+  background-color: rgba(18, 20, 26, 0.04);
+  color: var(--ink-text);
+  border: 1.5px solid var(--paper-line);
+  border-radius: 6px;
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  line-height: 1.55;
+  resize: vertical;
+  margin-bottom: 20px;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+ 
+textarea::placeholder {
+  color: #a89a78;
+}
+ 
+textarea:focus {
+  border-color: var(--onair);
+  background-color: #fffdf8;
+  outline: none;
+}
+ 
+.recording-controls {
+  margin-bottom: 22px;
+}
+ 
+.navigation-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  margin-top: 6px;
+}
+ 
+/* ==================== COMPLETION MESSAGE ==================== */
+.completion-message {
+  text-align: center;
+  background: var(--panel);
+  padding: 46px 32px;
+  border-radius: 12px;
+  border: 1px solid var(--panel-line);
+  margin-bottom: 30px;
+  position: relative;
+  overflow: hidden;
+}
+ 
+.completion-message::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(52, 211, 153, 0.08), transparent 60%);
+  pointer-events: none;
+}
+ 
+.completion-message h2 {
+  font-family: 'Fraunces', serif;
+  color: var(--confidence);
+  margin-bottom: 12px;
+  font-size: 1.9rem;
+  font-weight: 600;
+}
+ 
+.completion-message p {
+  color: var(--text-soft);
+  font-size: 15px;
+}
+ 
+/* ==================== DASHBOARD — control panel ==================== */
+.dashboard {
+  background: var(--panel);
+  padding: 34px 36px;
+  border-radius: 12px;
+  border: 1px solid var(--panel-line);
+}
+ 
+.dashboard h3 {
+  font-family: 'Fraunces', serif;
+  color: #f2ede1;
+  margin-bottom: 22px;
+  font-size: 1.35rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+ 
+.dashboard h3::before {
+  content: '';
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--confidence);
+  box-shadow: 0 0 0 3px rgba(52, 211, 153, 0.18);
+}
+ 
+.dashboard p {
+  margin: 12px 0;
+  font-size: 15px;
+  font-family: 'Courier Prime', monospace;
+  color: var(--text-soft);
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--panel-line);
+}
+ 
+.dashboard ul {
+  margin-top: 20px;
+  padding-left: 0;
+  list-style: none;
+}
+ 
+.dashboard li {
+  margin-bottom: 12px;
+  color: var(--text-soft);
+  font-size: 14.5px;
+  padding-left: 22px;
+  position: relative;
+  line-height: 1.55;
+}
+ 
+.dashboard li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  color: var(--amber);
+}
+ 
+/* ==================== responsive & motion floor ==================== */
+@media (max-width: 600px) {
+  h1 { font-size: 2.1rem; }
+  .question-card { padding: 30px 22px 26px; transform: none; }
+  .global-timer { top: 14px; right: 14px; padding: 8px 14px 8px 12px; font-size: 13px; }
+  .dashboard { padding: 26px 22px; }
+}
+ 
+@media (prefers-reduced-motion: reduce) {
+  .global-timer::before { animation: none; }
+}
+ 
+button:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 2px;
+}
+ 
