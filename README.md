@@ -51,4 +51,4 @@ npm run dev
 
 ## 👨‍💻 Author
 
-**Dileep**
+Pamarthi Charith Sai
